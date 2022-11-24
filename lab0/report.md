@@ -2,7 +2,7 @@
 #### «Национальный исследовательский университет ИТМО»
 ### Основы профессиональной деятельности
 ## Лабораторная работа 1
-## Вариант 368982
+## Вариант 3118
 ### Хабнер Георгий, P3131
 ###  2022
 
@@ -135,22 +135,29 @@ drwxr-x-w-  2 s368982  studs    2 17 сент. 20:41 tympole
 
 ###3. Третье задание
 >
-    chmod -R 777 ./lab0
+  
     #скопировать содержимое файла sentret9 в новый файл lab0/vileplume2/cofagrigussentret
+    chmod u+r ./lab0/sentret9
     cp ./lab0/sentret9 ./lab0/vileplume2/cofagrigussentret
 
     #скопировать рекурсивно директорию lanturn8 в директорию lab0/lanturn8/diglett
-    cp -r ./lab0/lanturn8 ./lab0/lanturn8/diglett
-
-    #объеденить содержимое файлов lab0/lanturn8/bastiodon, lab0/vileplume2/cat ./lab0/lanturn8/bastiodon ./lab0/vileplume2/cofagrigus > ./lab0/sentret9_44
+    chmod u+r lab0/lanturn8/scyther
+    chmod u+r lab0/lanturn8/tangela
+    chmod u+r lab0/lanturn8/diglett
+    cp -r lab0/lanturn8 lab0/lanturn;chmod 700 lab0/lanturn ;cp -r lab0/lanturn/ lab0/lanturn8/diglett; chmod -R 700 lab0/lanturn; rm -r lab0/lanturn
+    
+    #объеденить содержимое файлов lab0/lanturn8/bastiodon, lab0/vileplume2/cofagrigus , в новый файл lab0/sentret9_44
+    cat ./lab0/lanturn8/bastiodon ./lab0/vileplume2/cofagrigus > ./lab0/sentret9_44
 
     #создать символическую ссылку c именем Copy_82 на директорию hydreigon6 в каталоге lab0
-    ln -s ./lab0/hydreigon6 ./lab0/Copy_82
+    ln -s $PWD/lab0/hydreigon6 ./lab0/Copy_82
 
     #cоздать символическую ссылку для файла sentret9 с именем lab0/hydreigon6/golemsentret
-    ln -s ./lab0/sentret9 ./lab0/hydreigon6/golemsentret
+    chmod u+w lab0/hydreigon6
+    ln -s $PWD/lab0/sentret9 ./lab0/hydreigon6/golemsentret
 
     #скопировать файл sentret9 в директорию lab0/hydreigon6/mienshao
+    chmod u+w lab0/hydreigon6/mienshao
     cp ./lab0/sentret9 ./lab0/hydreigon6/mienshao
 
     #cоздать жесткую ссылку для файла cherrim3 с именем lab0/hydreigon6/venusaurcherrim
@@ -197,21 +204,23 @@ sentret9 в lab0/hydreigon6/mienshao
     wc -m ./lab0/lanturn8/* &>> /tmp/s368982_log
 
     #Вывести четыре первых элемента рекурсивного списка имен и атрибутов файлов в директории lab0, начинающихся на символ 's', список отсортировать по убыванию даты модификации файла, ошибки доступа не подавлять и не перенаправлять
-    grep -rl . | grep /s 2>&1 | xargs ls -lt | head -4
+    grep -rl . | grep /s | xargs ls -lt | head -4
 
     #Вывести содержимое файлов с номерами строк в директории lanturn8, исключить строки, содержащие "ble", регистр символов игнорировать, ошибки доступа перенаправить в файл в директории /tmp
     cat -n ./lab0/lanturn8/*  2>> /tmp/s368982_log | grep -vi ble 
 
     #Подсчитать количество символов содержимого файлов: golem, tyrogue, отсортировать вывод по уменьшению количества, подавить вывод ошибок доступа
-    wc -m ./lab0/hydreigon6/golem ./lab0/hydreigon6/tyrogue | head -2 | sort -r 2>/dev/null
+    wc -m ./lab0/hydreigon6/golem ./lab0/hydreigon6/tyrogue | head -2 | sort -n 2>/dev/null
 
     #Вывести рекурсивно список имен и атрибутов файлов в директории lanturn8, список отсортировать по имени z->a, ошибки доступа не подавлять и не перенаправлять
-    ls -R ./lab0/lanturn8 | sort -r | grep "."
-
+    cd lab0/lanturn8
+    grep -rl . | sort -r | xargs ls -l
+    cd
+  
     #Вывести список имен и атрибутов файлов в директории vileplume2, список отсортировать по возрастанию даты доступа к файлу, добавить вывод ошибок доступа в стандартный поток вывода
     chmod u=rx ./lab0/vileplume2
-    ls -lcr ./lab0/vileplume2 2>&1
-
+    ls -ltr ./lab0/vileplume2 2>&1
+<!-- ls -Rl ./lab0/lanturn8 | sort -r | grep "." -->  
 1 задание
 >[s368982@helios ~]$ cat /tmp/s368982_log
 wc: ./lab0/lanturn8/diglett: open: Permission denied
@@ -239,10 +248,10 @@ grep: ./lab0/sentret9: Permission denied
 >[s368982@helios ~]$ cat -n ./lab0/lanturn8/*  2>/tmp/s368982_log
      1  Тип покемона ROCK STEEL
 
-4 задание
+<!-- 4 задание
 >
       25 ./lab0/hydreigon6/golem
-      21 ./lab0/hydreigon6/tyrogue
+      21 ./lab0/hydreigon6/tyrogue -->
 
 5 задание
 >ls: ./lab0/lanturn8/diglett: Permission denied
@@ -265,7 +274,7 @@ d-wx--x-w-  2 s368982  studs    2 18 сент. 01:15 porygon2
 
 ###5. Пятое задание
 >
-    chmod -R 777 ./lab0
+    chmod -R 700 ./lab0
     #Удалить файл spearow8
     rm ./lab0/spearow8
 
