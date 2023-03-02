@@ -1,0 +1,3 @@
+1) 0x4AF = 04C9 AC=D4BA n=1 c=1 : AC=EA5D n=1 v=1 c=0 : AC = 752E v=1 c=1 n=0 : IP = 4C4 
+2) 0x4AF = 04C8 AC = F003 n=1 c=1 : AC = F801 n=1 c=1 : IP = 4C4
+3) 0x4AF = 04C7 AC = 0802 c=1 : AC = 8401 n=1 v=1 : AC = 4200 v=1 c=1 : IP = 4C4
