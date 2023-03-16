@@ -1,0 +1,50 @@
+ORG 0x23D
+START: 
+    CLA
+    ST A
+    LD B
+    DEC
+    PUSH
+    CALL $function
+    POP
+    ADD A
+    ST A
+    LD C
+    INC
+    PUSH
+    CALL $function
+    POP
+    SUB A
+    ST A
+    LD D
+    PUSH
+    CALL $function
+    POP
+    INC
+    SUB A
+    ST A
+    HLT
+    B: WORD 0xFFF8
+    C: WORD 0x001C
+    D: WORD 0xFDA8
+    A: WORD 0x0071
+
+ORG 0x6D6
+function:
+    LD &1
+    BEQ exit1
+    BPL exit2
+    exit1: CMP E
+           BLT exit2
+           BEQ exit2
+           ASL
+           ASL
+           SUB &1
+           SUB F
+           JUMP exit3
+           exit2:
+               LD E
+               exit3: ST &1
+               RET
+    E: WORD 0xFE37
+    F: WORD 0x00AB
