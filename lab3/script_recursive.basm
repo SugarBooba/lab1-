@@ -1,0 +1,23 @@
+ORG 0x001
+START:
+    LD N
+    PUSH 
+    CALL $function
+    POP
+    ST A
+    HLT
+    A: WORD 0x000
+    N: WORD 0x0002
+
+ORG 0x30
+function:
+    exit2: LD &1
+    CMP #1
+    BEQ exit1
+    DEC
+    PUSH
+    CALL exit2
+    POP
+    ADD &1
+    ST &1
+    exit1: RET
