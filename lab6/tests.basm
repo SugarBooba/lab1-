@@ -1,0 +1,60 @@
+	ORG 	0x3C9
+ARG1:	WORD	0x0000
+ARG2:	WORD	0xFFFF
+ARG3:	WORD	0x1055
+ARG4:	WORD	0x2002
+CHECK:	WORD	0x0000
+RES1:	WORD	0x0000
+RES2:	WORD	0xFE01
+RES3:	WORD	0x00AA
+START:	CLA	
+	CALL	TEST1
+	HLT	
+	CALL	TEST2
+	HLT	
+	CALL	TEST3
+	HLT		
+	LD	CHECK
+                HLT
+TEST1:	CLA
+                LD              ARG1
+                PUSH            
+                PUSH            
+                WORD            0x0F20
+                POP             
+                CMP             RES1
+                BEQ             OK
+                BR              NOTOK
+OK:             POP
+                POP
+                LD              #0x1
+                ADD             CHECK
+                ST              CHECK
+                CLA
+                RET   
+NOTOK:          POP
+                POP
+                LD              #0x0
+                ADD             CHECK
+                ST              CHECK
+                CLA
+                RET
+TEST2:          CLA
+                LD              ARG2
+                PUSH            
+                PUSH            
+                WORD            0x0F20
+                POP             
+                CMP             RES2
+                BEQ             OK
+                BR              NOTOK
+TEST3:          CLA
+                LD              ARG3
+                PUSH            
+                LD              ARG4
+                PUSH            
+                WORD            0x0F20
+                POP             
+                CMP             RES3
+                BEQ             OK
+                BR              NOTOK
