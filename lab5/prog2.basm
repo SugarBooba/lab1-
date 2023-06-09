@@ -1,0 +1,77 @@
+ORG 0x0
+V0: WORD $default, 0X180
+V1: WORD $int1, 0X180
+V2: WORD $int2, 0x180
+V3: WORD $default, 0x180
+V4: WORD $default, 0x180
+V5: WORD $default, 0x180
+V6: WORD $default, 0x180
+V7: WORD $default, 0x180
+default: IRET
+
+ORG 0x031
+X: WORD 0x0
+IO2: WORD 0x0
+min:           WORD 0xFFC5 ; минимально принимаемое значение ОДЗ (-59)
+max:            WORD 0x0044 ; максимально принимае значение ОДЗ (68)
+START:          DI
+                LD #0x9 ; Загрузка в аккумулятор MR (1000|0001=1001)
+                OUT 3 ; Разрешение прерываний для 1 ВУ
+                LD #0xA ; Загрузка в аккумулятор MR (1000|0010=1010)
+                OUT 5 ; Разрешение прерываний для 2 ВУ
+
+INCLP:          
+                DI ; Запрет прерываний
+                LD X
+                INC    
+                INC 
+                CALL CHECK
+                ST X
+                EI
+                BR INCLP
+
+ORG 0x060
+int1:           ; Обработка прерывания на ВУ-1
+                NOP
+                PUSH
+                LD X
+                ASL
+                SUB #10
+                OUT 2
+                POP
+                NOP
+                IRET
+
+ORG 0x070
+          
+int2:           ; Обработка прерывания на ВУ-2
+                ; LD $X
+                HLT
+                PUSH
+                CLA
+                IN 4
+                ST IO2
+                ASL
+                ADD IO2
+                SUB X
+                ST X
+                HLT
+                POP
+                IRET
+
+CHECK:          ; Проверка принадлежности X к ОДЗ
+                CMP             min ; проверка x>min
+                BMI             bad_ret
+                CMP             max ; проверка x<max
+                BPL             bad_ret
+
+                RET
+                bad_ret:        LD min ; загрузка в X min, если значение выходит из ОДЗ
+                                RET
+
+           
+
+                
+
+                
+
